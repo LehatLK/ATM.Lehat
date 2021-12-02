@@ -1,0 +1,87 @@
+accListan = []
+saldoLista = []
+
+def skapaKonto():
+    print("\nHej, skapa ett konto genom att skriva in fyra siffror och tryck sedan på enter")
+    var2 = int(input(": "))
+    accListan.append(var2)
+    saldo = 0
+    print("Gör din första insättning nu.")
+    sald = int(input(": "))
+    inne = saldo + sald
+    print("Du har satt in", inne, "KR på kontot")
+    saldoLista.append(inne)
+    logIn()
+
+def menyB(accountIndex):
+    print("\nVÄLKOMMEN TILL MENYN, vill du,")
+    print("Ta ut pengar, tryck 1 sedan enter.")
+    print("Sätta in pengar, tryck 2 sedan enter.")
+    print("Kolla ditt saldo, tryck 3 sedan enter.")
+    print("Avsluta, tryck på 4 sedan enter")
+
+    while True:
+        userinput = input("\nskriv in här: ")
+        var1 = '1'
+        var2 = '2'
+        var3 = '3'
+        var4 = '4'
+        if userinput == var1:
+            print("Hur mycket vill du ta ut?")
+            withdraw = int(input(": "))
+            while withdraw > saldoLista[accountIndex]:
+                print("\ndu har för lite pengar i kontot ange en ny summa")
+                withdraw = int(input(": "))
+            sum = saldoLista[accountIndex] - withdraw
+            saldoLista[accountIndex] = sum
+            print("Du har tagit ut ", withdraw," KR")
+            print("Du har kvar", sum, "KR på kontot")
+            continue
+        elif userinput == var2:
+            print("Hur mycket vill du sätta in?")
+            deposit = int(input(": "))
+            sum2 = deposit + saldoLista[accountIndex]
+            saldoLista[accountIndex] = sum2
+            print("Du har satt in ", deposit, "KR")
+            print("Du har nu", sum2, "KR på kontot")
+            continue
+        elif userinput == var3:
+            print("Saldo")
+            print("Du har ", saldoLista[accountIndex], "KR på kontot")
+            continue
+        elif userinput == var4:
+            huvudMeny()
+        False
+
+def logIn():
+    print("\nVälkommen logga in på ditt konto avsluta med enter.")
+    while True:
+        var3 = int(input())
+        
+        for i in range(len(accListan)):
+            if var3 == accListan[i]:
+                print("välkommen")
+                menyB(i)
+                #return
+            #elif var3 != accListan[i]:
+        print("Error konto finns inte försök igen")
+#i = första värdet i listan till höger om in
+def huvudMeny():
+    while True:
+        print("\n***HUVUDMENY***")
+        print("**Välkommen till Akalla bankomaten 164**")
+        print("välj vad du vill göra.")
+        print("För att skapa konto tryck på 1 sedan enter.")
+        print("För att logga in på ditt konto tryck på 2 sedan enter.")
+        var = input(": " )
+
+        if var == '1':
+            skapaKonto()
+            break
+        elif var == '2':
+            logIn()
+            break
+        else:
+            print("Ogiltig input testa igen.")
+
+huvudMeny()
